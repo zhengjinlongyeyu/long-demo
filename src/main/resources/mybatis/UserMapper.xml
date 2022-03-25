@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+        namespace="com.application.bussiness.test.mapper.UserMapper">
+
+
+    <!-- 查询用户 -->
+    <select id="getUserById" parameterType="int"
+            resultType="com.application.bussiness.test.entity.UserEntity">
+		select * from user where id = #{id}
+	</select>
+	
+	<!-- mybatis分页查询  自定义sql -->
+	<select id="getallListPage" parameterType="com.application.bussiness.test.entity.UserEntity"
+            resultType="com.application.bussiness.test.entity.UserEntity">
+		select * from user  
+		<where >
+		<if test="userEntity != null ">
+			<if test="userEntity.id != null and userEntity.id != ''">
+			and	 id=#{userEntity.id }
+			</if>
+			<if test="userEntity.userName != null and userEntity.userName != ''">
+			and  user_name=#{userEntity.userName }
+			</if>
+		</if>
+		</where>
+	</select>
+	<!-- 实体对象传参数 -->
+		<select id="getListALL" parameterType="com.application.bussiness.test.entity.UserEntity"
+            resultType="com.application.bussiness.test.entity.UserEntity">
+		select * from user 
+			<where >
+			<if test="id != null and id != ''">
+			and	 id=#{id }
+			</if>
+			<if test="userName != null and userName != ''">
+			and  user_name=#{userName }
+			</if>
+		</where>
+	</select>
+	
+		
+	<!-- 新增用户信息 -->
+	<insert id="addUser" parameterType="com.application.bussiness.test.entity.UserEntity">
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != '' ">
+				id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+		</trim>
+	</insert>
+</mapper>

@@ -1,0 +1,67 @@
+spring:
+  datasource:
+    druid:
+      #数据库用户名称
+      username: root
+      #数据库用户密码
+      password: 123456
+      #JDBC 连接字符串
+      url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      #数据库驱动类名称
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      #连接池建立时创建的初始化连接数
+      initial-size: 10
+      #连接池中最大的活跃连接数
+      max-active: 20
+      #连接池中最小的连接数
+      min-idle: 1
+      # 获取连接等待超时的时间
+      max-wait: 60000
+      #Druid 提供 WebStatFilter 用于采集 web-jdbc 关联监控的数据
+      web-stat-filter:
+        #是否启用 WebStatFilter，默认值 false
+        enabled: true
+        #需要监控的 url
+        url-pattern: /*
+        #需要排除一些不必要的 url，比如 *.js,/jslib/*等
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,"
+        #Druid 内置一个 StatViewServlet 用于展示 Druid 的统计信息，对 StatViewServlet 的配置
+      stat-view-servlet:
+        #是否启用 StatViewServlet （监控页面），默认为 false
+        enabled: true
+       # 监控页面登录的用户名称
+        login-username: admin
+        #监控页面登录的用户密码
+        login-password: admin
+        #是否允许清空统计数据
+        reset-enable: false
+        #根据配置中的 url-pattern 来访问内置监控页面，例如 /druid/*，则内置监控页面的首页是 /druid/index.html
+        url-pattern: /druid/*
+  redis:
+    #redis 服务器地址
+    host: 192.168.116.128
+    # redis 服务端口
+    port: 6379
+    # redis 服务密码
+    password: zhengjinlong
+    # redis 连接超时时长 
+    timeout: 10000ms
+    lettuce:
+      pool:
+      #最大连接数 默认8
+        max-active: 1024
+       #最大连接阻塞等待时间 单位毫秒 默认-1ms
+        max-wait: 10000ms
+        #最大空闲连接 默认8
+        max-idle: 200
+        #最小空闲连接  默认0
+        min-idle: 5
+          
+mybatis-plus:
+  # Mapper对应的xml文件扫描，多个目录用逗号或者分号分隔
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  # 配置控制台打印完整带参数SQL语句
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
+  
+
